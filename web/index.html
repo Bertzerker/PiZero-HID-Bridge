@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pi Zero USB Remote</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>Pi Zero USB Remote</h1>
+          <p>Detect USB devices, select them, and expose HID devices to the host PC.</p>
+        </div>
+        <div class="status" id="connectionStatus">Loading...</div>
+      </header>
+
+      <section class="panel controls">
+        <div>
+          <h2>Host-Port</h2>
+          <p id="gadgetStatus">Loading status.</p>
+        </div>
+        <div class="actions">
+          <button id="setupGadget">Set up gadget</button>
+          <button id="startGadget">Enable host port</button>
+          <button id="reconnectGadget" class="secondary">Reconnect USB</button>
+          <button id="testKey" class="secondary">Test: send A</button>
+          <button id="testMouse" class="secondary">Test mouse</button>
+          <button id="stopGadget" class="secondary">Stop</button>
+        </div>
+      </section>
+
+      <section class="panel controls">
+        <div>
+          <h2>Forwarding</h2>
+          <p id="forwardStatus">No forwarding is active.</p>
+        </div>
+        <div class="actions">
+          <button id="startForward">Forward selection</button>
+          <button id="stopForward" class="secondary">Stop forwarding</button>
+        </div>
+      </section>
+
+      <section class="panel virtual-panel">
+        <div class="virtual-keyboard">
+          <h2>Virtual Keyboard</h2>
+          <div class="text-send">
+            <input id="virtualText" type="text" placeholder="Send text to the client" autocomplete="off" />
+            <button id="sendText">Send</button>
+          </div>
+          <div class="key-grid">
+            <button data-key="escape">Esc</button>
+            <button data-key="tab">Tab</button>
+            <button data-key="enter">Enter</button>
+            <button data-key="backspace">Backspace</button>
+            <button data-key="delete">Del</button>
+            <button data-key="up">↑</button>
+            <button data-key="left">←</button>
+            <button data-key="down">↓</button>
+            <button data-key="right">→</button>
+          </div>
+        </div>
+        <div class="virtual-mouse">
+          <h2>Virtual Mouse</h2>
+          <div class="mouse-grid">
+            <button data-move="0,-40">↑</button>
+            <button data-move="-40,0">←</button>
+            <button data-click="left">Click</button>
+            <button data-move="40,0">→</button>
+            <button data-move="0,40">↓</button>
+          </div>
+          <div class="mouse-actions">
+            <button data-click="right" class="secondary">Right click</button>
+            <button data-wheel="1" class="secondary">Scroll ↑</button>
+            <button data-wheel="-1" class="secondary">Scroll ↓</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="device-section">
+        <div class="section-title">
+          <h2>USB Devices</h2>
+          <button id="refresh" class="secondary">Refresh</button>
+        </div>
+        <div id="messages" class="messages" hidden></div>
+        <div id="devices" class="devices"></div>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

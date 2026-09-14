@@ -1,0 +1,16 @@
+[Unit]
+Description=Pi Zero USB Remote HID Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/pizero-usb-agent
+ExecStartPre=-/sbin/modprobe libcomposite
+ExecStart=/usr/bin/python3 -m pizero_usb_agent --host 0.0.0.0 --port 8080
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
