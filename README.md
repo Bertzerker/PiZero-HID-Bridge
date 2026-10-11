@@ -26,6 +26,10 @@ A Raspberry Pi Zero 2 W cannot transparently pass arbitrary USB devices through 
 
 This project solves the practical remote-control case by exposing a USB HID keyboard and mouse gadget to the client. Keyboard and mouse input can come from Linux input devices on the Pi, including devices made available over the network by VirtualHere.
 
+![Pi Zero HID Bridge illustration showing a Wi-Fi router, Raspberry Pi Zero, and target computer displaying its BIOS](docs/images/hid-bridge-illustration.png)
+
+*The Pi uses Wi-Fi for network control and its USB/OTG data port to send keyboard and mouse input to the target computer.*
+
 For the Pi Zero 2 W:
 
 - Connect the client machine to the Pi `USB`/OTG data port, not the `PWR IN` port.
