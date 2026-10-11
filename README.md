@@ -64,7 +64,35 @@ Then reboot the Pi. During boot, the updater:
 3. Deletes `wifi-credentials.txt` after reading it.
 4. Logs to `/var/log/bootfs-wifi-update.log`.
 
-The file can also use `WIFI_SSID`, `WIFI_PASSWORD`, `WIFI_COUNTRY`, and `WIFI_HIDDEN` as key names. Quoted values are supported.
+The file can also use `WIFI_SSID`, `WIFI_PASSWORD`, `WIFI_COUNTRY`, and `WIFI_HIDDEN` as key names. Quoted values are supported. Deleting the input file does not remove the saved Wi-Fi profile that the Pi needs to reconnect.
+
+### Headless Setup Using Only The SD Card
+
+`config.txt` configures the Raspberry Pi firmware and cannot launch shell scripts. On Raspberry Pi OS, use `cmdline.txt` to launch a one-time setup instead. This works while the USB port stays in OTG peripheral mode and requires neither a keyboard nor a working Wi-Fi connection.
+
+If the Wi-Fi updater was already installed by `setup-pi.sh`, simply place `wifi-credentials.txt` on bootfs and reboot. No boot configuration changes are needed.
+
+If it has not been installed:
+
+1. Power off the Pi and insert its SD card into your PC.
+2. Open the visible `bootfs` partition and back up its `cmdline.txt`.
+3. Copy `bootfs/bootstrap-wifi.sh` and `bootfs/update-wifi.sh` from this project into the root of that partition. Keep the scripts' Unix (LF) line endings.
+4. Create `wifi-credentials.txt` there using the example above. Use a 2.4 GHz Wi-Fi network for the Pi Zero 2 W.
+5. Append the following to the **existing single line** in `cmdline.txt`, separated from the existing text by a space:
+
+   ```text
+   systemd.run=/boot/firmware/bootstrap-wifi.sh systemd.run_success_action=reboot systemd.run_failure_action=none systemd.unit=kernel-command-line.target
+   ```
+
+6. Safely eject the SD card, put it back into the Pi, and power it on. Allow a few minutes for the setup boot, automatic reboot, and Wi-Fi connection.
+
+Your previously shown Raspberry Pi OS uses `/boot/firmware`. On older installations where bootfs is mounted at `/boot`, use `systemd.run=/boot/bootstrap-wifi.sh` instead. The path is the location **on the Pi**, not the SD card's Windows drive letter.
+
+Keep all existing options, including `root=`, `modules-load=dwc2,libcomposite`, and any OTG settings. If `cmdline.txt` already contains `systemd.run=` or `systemd.unit=`, finish that setup before adding these bootstrap options.
+
+The setup boot installs and enables the updater service, removes only the added bootstrap options from `cmdline.txt`, and reboots. The next normal boot applies the Wi-Fi settings and deletes `wifi-credentials.txt`. For future password changes, only add a new credentials file and reboot again.
+
+If setup fails before removing the bootstrap options, it will stay at the setup target. Power off, open the SD card on your PC, and restore the backed-up `cmdline.txt` to return to normal startup.
 
 ## Usage
 
@@ -115,4 +143,5 @@ If `not attached` persists, check the client USB port, the cable, the Pi OTG por
 pizero_usb_agent/   Python agent, USB detection, HID gadget setup, forwarding
 web/                Browser interface
 install/            Pi setup, systemd service, diagnostic helper
+bootfs/             Headless Wi-Fi bootstrap, updater, credentials template
 ```
