@@ -56,7 +56,7 @@ apt-get update
 apt-get install -y python3
 
 mkdir -p "$PROJECT_DIR" /var/lib/pizero-usb-agent
-cp -r pizero_usb_agent web "$PROJECT_DIR/"
+cp -r pizero_usb_agent web bootfs "$PROJECT_DIR/"
 cp install/pizero-usb-agent.service "$SERVICE_FILE"
 
 if [[ -f /boot/firmware/config.txt ]]; then
@@ -85,5 +85,6 @@ EOF
 
 systemctl daemon-reload
 systemctl enable pizero-usb-agent.service
+bash install/install-bootfs-wifi-updater.sh
 
 echo "Installed. Please reboot. The web interface will then be available on port 8080."

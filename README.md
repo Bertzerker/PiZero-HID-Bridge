@@ -44,6 +44,28 @@ After reboot, open:
 http://<pi-ip>:8080
 ```
 
+## Updating Wi-Fi From bootfs
+
+The installer also enables a boot-time Wi-Fi updater. It copies `bootfs/update-wifi.sh` to the Raspberry Pi boot partition and installs a systemd service that runs it early during boot.
+
+To change Wi-Fi later, create a file named `wifi-credentials.txt` on the bootfs partition next to `update-wifi.sh`:
+
+```text
+SSID=Your WiFi Name
+PASSWORD=Your WiFi Password
+COUNTRY=DE
+HIDDEN=false
+```
+
+Then reboot the Pi. During boot, the updater:
+
+1. Reads `wifi-credentials.txt` from bootfs.
+2. Applies the Wi-Fi settings using NetworkManager when available, otherwise `wpa_supplicant`.
+3. Deletes `wifi-credentials.txt` after reading it.
+4. Logs to `/var/log/bootfs-wifi-update.log`.
+
+The file can also use `WIFI_SSID`, `WIFI_PASSWORD`, `WIFI_COUNTRY`, and `WIFI_HIDDEN` as key names. Quoted values are supported.
+
 ## Usage
 
 1. Connect the Pi `USB`/OTG data port to the target client.
