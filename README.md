@@ -4,7 +4,10 @@ Pi Zero HID Bridge turns a Raspberry Pi Zero 2 W into a small network-controlled
 
 The project was built for headless client control: plug the Pi into the client machine as a USB device, access the Pi over Wi-Fi, then forward keyboard and mouse input or use the built-in virtual keyboard and mouse controls.
 
-![Pi Zero HID Bridge web interface showing USB gadget controls, forwarding, and virtual keyboard and mouse](docs/images/web-interface.png)
+<p align="center">
+<img src="docs/images/web-interface.png" alt="web-interface" width="420">
+</p>
+
 
 *Screenshot from the earlier German-language interface. The current interface is in English.*
 
@@ -26,7 +29,11 @@ A Raspberry Pi Zero 2 W cannot transparently pass arbitrary USB devices through 
 
 This project solves the practical remote-control case by exposing a USB HID keyboard and mouse gadget to the client. Keyboard and mouse input can come from Linux input devices on the Pi, including devices made available over the network by VirtualHere.
 
-![Pi Zero HID Bridge illustration showing a Wi-Fi router, Raspberry Pi Zero, and target computer displaying its BIOS](docs/images/hid-bridge-illustration.png)
+<p align="center">
+<img src="docs/images/hid-bridge-illustration.png" alt="hid-bridge-illustration" width="420">
+</p>
+
+
 
 *The Pi uses Wi-Fi for network control and its USB/OTG data port to send keyboard and mouse input to the target computer.*
 
