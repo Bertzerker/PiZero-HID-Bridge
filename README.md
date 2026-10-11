@@ -4,6 +4,10 @@ Pi Zero HID Bridge turns a Raspberry Pi Zero 2 W into a small network-controlled
 
 The project was built for headless client control: plug the Pi into the client machine as a USB device, access the Pi over Wi-Fi, then forward keyboard and mouse input or use the built-in virtual keyboard and mouse controls.
 
+![Pi Zero HID Bridge web interface showing USB gadget controls, forwarding, and virtual keyboard and mouse](docs/images/web-interface.png)
+
+*Screenshot from the earlier German-language interface. The current interface is in English.*
+
 ## What It Can Do
 
 - Detect attached USB devices from Linux sysfs.
