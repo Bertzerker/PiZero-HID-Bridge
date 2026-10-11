@@ -27,7 +27,7 @@ The project was built for headless client control: plug the Pi into the client m
 
 A Raspberry Pi Zero 2 W cannot transparently pass arbitrary USB devices through the same USB/OTG port. That port is either acting as a USB host or as a USB device.
 
-This project solves the practical remote-control case by exposing a USB HID keyboard and mouse gadget to the client. Keyboard and mouse input can come from Linux input devices on the Pi, including devices made available over the network by VirtualHere.
+This project solves the practical remote-control case by exposing a USB HID keyboard and mouse gadget to the client. Keyboard and mouse input can come from Linux input devices on the Pi, including devices made available over the network by VirtualHere or other USB over IP hosts.
 
 <p align="center">
 <img src="docs/images/hid-bridge-illustration.png" alt="hid-bridge-illustration" width="420">
